@@ -6,15 +6,15 @@ This is a Lark (飞书) webhook logging container for Mythic v3.0.0+. This conta
 
 - Sends log events to Lark webhook as messages are received
 - Supports: Callback, Task, Payload, Keylog, Credential, Artifact, File, Response events
-- Falls back to local logging if `LARK_WEBHOOK_URL` is not set
+- Falls back to local logging if `WEBHOOK_DEFAULT_URL` is not set
 - Logs are still written to `mythic.log` file
 
 ## Configuration
 
-Set the `LARK_WEBHOOK_URL` environment variable with your Lark webhook URL:
+Set the `WEBHOOK_DEFAULT_URL` environment variable with your Lark webhook URL:
 
 ```bash
-export LARK_WEBHOOK_URL=https://open.feishu.cn/open-apis/bot/v2/hook/your-webhook-url
+export WEBHOOK_DEFAULT_URL=https://open.feishu.cn/open-apis/bot/v2/hook/your-webhook-url
 ```
 
 To create a Lark webhook:

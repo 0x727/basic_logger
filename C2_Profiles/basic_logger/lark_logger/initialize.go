@@ -11,7 +11,7 @@ import (
 	"github.com/MythicMeta/MythicContainer/loggingstructs"
 )
 
-var larkWebhookURL = os.Getenv("LARK_WEBHOOK_URL")
+var larkWebhookURL = os.Getenv("WEBHOOK_DEFAULT_URL")
 
 type LarkMessage struct {
 	MsgType string `json:"msg_type"`
