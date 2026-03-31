@@ -58,45 +58,59 @@ func Initialize() {
 		LogMaxSizeInMB: 20,
 		LogMaxBackups:  10,
 		NewCallbackFunction: func(input loggingstructs.NewCallbackLog) {
-			msg := fmt.Sprintf("[Callback] %s - %v", input.Action, input)
+			inputJSON, _ := json.Marshal(input)
+			msg := fmt.Sprintf("[Callback] %s\n🌐 Host: %s | %s\n👤 User: %s\n🔢 PID: %d\n🌍 IP: %s | External: %s\n💻 OS: %s | Arch: %s\n📋 Process: %s\n📝 Description: %s\n📋 Full Data: %s",
+				input.Action,
+				input.Data.Host,
+				input.Data.Domain,
+				input.Data.User,
+				input.Data.PID,
+				input.Data.Ip,
+				input.Data.ExternalIp,
+				input.Data.Os,
+				input.Data.Architecture,
+				input.Data.ProcessName,
+				input.Data.Description,
+				string(inputJSON),
+			)
 			sendToLark(msg)
 			loggingstructs.AllLoggingData.Get(myLoggerName).LogInfo(input.Action, "data", input)
 		},
-		NewTaskFunction: func(input loggingstructs.NewTaskLog) {
-			msg := fmt.Sprintf("[Task] %s - %v", input.Action, input.Data)
-			sendToLark(msg)
-			loggingstructs.AllLoggingData.Get(myLoggerName).LogInfo(input.Action, "data", input.Data)
-		},
-		NewPayloadFunction: func(input loggingstructs.NewPayloadLog) {
-			msg := fmt.Sprintf("[Payload] %s - %v", input.Action, input.Data)
-			sendToLark(msg)
-			loggingstructs.AllLoggingData.Get(myLoggerName).LogInfo(input.Action, "data", input.Data)
-		},
-		NewKeylogFunction: func(input loggingstructs.NewKeylogLog) {
-			msg := fmt.Sprintf("[Keylog] %s - %v", input.Action, input.Data)
-			sendToLark(msg)
-			loggingstructs.AllLoggingData.Get(myLoggerName).LogInfo(input.Action, "data", input.Data)
-		},
-		NewCredentialFunction: func(input loggingstructs.NewCredentialLog) {
-			msg := fmt.Sprintf("[Credential] %s - %v", input.Action, input.Data)
-			sendToLark(msg)
-			loggingstructs.AllLoggingData.Get(myLoggerName).LogInfo(input.Action, "data", input.Data)
-		},
-		NewArtifactFunction: func(input loggingstructs.NewArtifactLog) {
-			msg := fmt.Sprintf("[Artifact] %s - %v", input.Action, input.Data)
-			sendToLark(msg)
-			loggingstructs.AllLoggingData.Get(myLoggerName).LogInfo(input.Action, "data", input.Data)
-		},
-		NewFileFunction: func(input loggingstructs.NewFileLog) {
-			msg := fmt.Sprintf("[File] %s - %v", input.Action, input.Data)
-			sendToLark(msg)
-			loggingstructs.AllLoggingData.Get(myLoggerName).LogInfo(input.Action, "data", input.Data)
-		},
-		NewResponseFunction: func(input loggingstructs.NewResponseLog) {
-			msg := fmt.Sprintf("[Response] %s - %v", input.Action, input.Data)
-			sendToLark(msg)
-			loggingstructs.AllLoggingData.Get(myLoggerName).LogInfo(input.Action, "data", input.Data)
-		},
+		// NewTaskFunction: func(input loggingstructs.NewTaskLog) {
+		// 	msg := fmt.Sprintf("[Task] %s - %v", input.Action, input.Data)
+		// 	sendToLark(msg)
+		// 	loggingstructs.AllLoggingData.Get(myLoggerName).LogInfo(input.Action, "data", input.Data)
+		// },
+		// NewPayloadFunction: func(input loggingstructs.NewPayloadLog) {
+		// 	msg := fmt.Sprintf("[Payload] %s - %v", input.Action, input.Data)
+		// 	sendToLark(msg)
+		// 	loggingstructs.AllLoggingData.Get(myLoggerName).LogInfo(input.Action, "data", input.Data)
+		// },
+		// NewKeylogFunction: func(input loggingstructs.NewKeylogLog) {
+		// 	msg := fmt.Sprintf("[Keylog] %s - %v", input.Action, input.Data)
+		// 	sendToLark(msg)
+		// 	loggingstructs.AllLoggingData.Get(myLoggerName).LogInfo(input.Action, "data", input.Data)
+		// },
+		// NewCredentialFunction: func(input loggingstructs.NewCredentialLog) {
+		// 	msg := fmt.Sprintf("[Credential] %s - %v", input.Action, input.Data)
+		// 	sendToLark(msg)
+		// 	loggingstructs.AllLoggingData.Get(myLoggerName).LogInfo(input.Action, "data", input.Data)
+		// },
+		// NewArtifactFunction: func(input loggingstructs.NewArtifactLog) {
+		// 	msg := fmt.Sprintf("[Artifact] %s - %v", input.Action, input.Data)
+		// 	sendToLark(msg)
+		// 	loggingstructs.AllLoggingData.Get(myLoggerName).LogInfo(input.Action, "data", input.Data)
+		// },
+		// NewFileFunction: func(input loggingstructs.NewFileLog) {
+		// 	msg := fmt.Sprintf("[File] %s - %v", input.Action, input.Data)
+		// 	sendToLark(msg)
+		// 	loggingstructs.AllLoggingData.Get(myLoggerName).LogInfo(input.Action, "data", input.Data)
+		// },
+		// NewResponseFunction: func(input loggingstructs.NewResponseLog) {
+		// 	msg := fmt.Sprintf("[Response] %s - %v", input.Action, input.Data)
+		// 	sendToLark(msg)
+		// 	loggingstructs.AllLoggingData.Get(myLoggerName).LogInfo(input.Action, "data", input.Data)
+		// },
 	}
 	loggingstructs.AllLoggingData.Get(myLoggerName).AddLoggingDefinition(myLogger)
 }
